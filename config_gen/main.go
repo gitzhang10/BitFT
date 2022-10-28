@@ -27,20 +27,13 @@ func judgeNodeType(i int,b []int)bool{
 }
 
 func generateRandomNumber(start int, end int, count int) []int {
-	//范围检查
 	if end < start || (end-start) < count {
 		return nil
 	}
-
-	//存放结果的slice
 	nums := make([]int, 0)
-	//随机数生成器，加入时间戳保证每次生成的随机数不一样
 	r := rand.New(rand.NewSource(time.Now().UnixNano()))
 	for len(nums) < count {
-		//生成随机数
-		num := r.Intn((end - start)) + start
-
-		//查重
+		num := r.Intn(end - start) + start
 		exist := false
 		for _, v := range nums {
 			if v == num {
@@ -48,7 +41,6 @@ func generateRandomNumber(start int, end int, count int) []int {
 				break
 			}
 		}
-
 		if !exist {
 			nums = append(nums, num)
 		}
@@ -74,8 +66,9 @@ func main() {
 		panic(err)
 	}
 
-	leaderCount:=1
-	ProcessCount:=1   //调整节点数
+	// you can change these values blew as you want
+	leaderCount:=1   // the number of nodes in the first computer
+	ProcessCount:=1  // the number of nodes in other computers
 
 	// deal with cluster as a string map
 	ClusterMapInterface := viperRead.GetStringMap("ips")
@@ -214,7 +207,6 @@ func main() {
 			if ipIndex==0{
 				replicaId=j
 			}else{
-				//计算节点下标
 				replicaId=(ipIndex-1)*ProcessCount+j+leaderCount
 			}
 
