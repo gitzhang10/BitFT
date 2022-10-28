@@ -1,0 +1,8 @@
+- hosts: bit
+  remote_user: vagrant
+  gather_facts: false
+  tasks:
+    - name: kill BitFT
+      shell: killall BitFT
+      ignore_errors: yes
+

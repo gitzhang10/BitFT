@@ -1,0 +1,23 @@
+- hosts: bit
+  remote_user: vagrant
+  tasks:
+    - name: create testbed dirs
+      file:
+        path: /home/vagrant/testbed
+        state: directory
+
+    - name: run BitFT as a daemon
+      shell: "(nohup ./BitFT > /home/vagrant/testbed/{{inventory_hostname}}_{{item}}.txt 2>&1 &)"
+      args:
+        chdir: /home/vagrant/BitFT{{item}}
+      loop:
+        - 0
+      when: (ansible_hostname is match "node1")
+
+    - name: run BitFT as a daemon
+      shell: "(nohup ./BitFT > /home/vagrant/testbed/{{inventory_hostname}}_{{item}}.txt 2>&1 &)"
+      args:
+        chdir: /home/vagrant/BitFT{{item}}
+      loop:
+        - 0
+      when: (ansible_hostname is not match "node1")
