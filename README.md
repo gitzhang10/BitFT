@@ -1,5 +1,5 @@
 ## Description
-This project is used to implement a blockChain with an asynchronous BFT -- BitFT.
+This project is used to implement a blockChain with a weak asynchronous BFT -- BitFT.
 There are two protocols: BitFT and Layered BitFT.
 
 ## Usage
